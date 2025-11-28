@@ -74,8 +74,13 @@ def load_model_files():
         print(f"✓ Metadata loaded: {metadata.get('model_name', 'Unknown')}")
         
         # Load rare classes specialized model
-        rare_model_dir = os.path.join(base_dir, '../src/models/rare_classes')
-        rare_scaler_dir = os.path.join(base_dir, '../scaler-features')
+        # Check if models are in parent dir (local) or backend dir (Railway)
+        if os.path.exists(os.path.join(base_dir, '../src/models/rare_classes')):
+            rare_model_dir = os.path.join(base_dir, '../src/models/rare_classes')
+            rare_scaler_dir = os.path.join(base_dir, '../scaler-features')
+        else:
+            rare_model_dir = os.path.join(base_dir, 'models/rare_classes')
+            rare_scaler_dir = os.path.join(base_dir, 'scaler-features')
         
         try:
             # Load rare classes DL model

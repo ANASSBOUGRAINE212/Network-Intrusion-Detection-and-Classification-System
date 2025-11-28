@@ -8,9 +8,18 @@ DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'  # Set to False in pr
 
 # Model Configuration
 # Using models from src/models/deep learning/ directory
-MODEL_DIR = '../src/models/deep learning'
+import os
+
+# Check if running on Railway (models in parent dir) or locally
+if os.path.exists('../src/models'):
+    MODEL_DIR = '../src/models/deep learning'
+    SCALER_DIR = '../scaler-features'
+else:
+    # On Railway, models should be in backend folder
+    MODEL_DIR = './models/deep learning'
+    SCALER_DIR = './scaler-features'
+
 MODEL_FILE = 'best_dl_model_wide_and_deep.keras'
-SCALER_DIR = '../scaler-features'
 SCALER_FILE = 'dl_scaler.pkl'
 FEATURES_FILE = 'dl_feature_names.pkl'
 METADATA_FILE = 'dl_model_metadata.pkl'
