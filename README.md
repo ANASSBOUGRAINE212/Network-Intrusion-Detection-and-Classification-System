@@ -10,46 +10,62 @@ This project implements an end-to-end machine learning pipeline for cyber attack
 - **Classes**: 15 (1 benign + 14 attack types)
 - **Best Model**: Wide & Deep Neural Network
 - **Performance**: 99.28% F1-Score, 98.11% Accuracy
+- **Deployment**: Live on Railway (backend) + Netlify (frontend)
+
+## 🛠️ Tech Stack
+
+**Backend:**
+- Python 3.11
+- Flask 3.0 (REST API)
+- TensorFlow 2.17 + Keras 3.6 (Deep Learning)
+- scikit-learn 1.3.2 (Preprocessing)
+- NumPy 1.26.4 (Numerical computing)
+- Pandas 2.1.4 (Data manipulation)
+- Gunicorn 21.2.0 (Production server)
+
+**Frontend:**
+- HTML5 + CSS3 (Modern dark theme)
+- Vanilla JavaScript (ES6+)
+- Chart.js (Interactive visualizations)
+- Fetch API (Backend communication)
+
+**Deployment:**
+- Railway (Backend hosting)
+- Netlify (Frontend hosting)
+- GitHub (Version control + CI/CD)
+
+**Development:**
+- Jupyter Notebook (ML experimentation)
+- Git (Version control)
+
+## 🌐 Live Demo
+
+**Frontend**: https://network-intrusion-detection-sys.netlify.app  
+**Backend API**: https://network-intrusion-detection-and-classification-s-production.up.railway.app
+
 
 ## 🚀 Quick Start
 
-### 1. Install Dependencies
+### Option 1: Use Live Demo (Recommended)
+Just visit the live demo URL above - no installation needed!
 
-**Important**: Make sure you have Python 3.8+ installed.
+### Option 2: Run Locally
 
+**1. Install Dependencies**
 ```bash
 cd backend
 pip install -r requirements.txt
 ```
 
-This will install:
-- flask==3.0.0 (Web framework)
-- flask-cors==4.0.0 (CORS support)
-- tensorflow==2.15.0 (Deep learning)
-- numpy==1.24.3 (Numerical computing)
-- pandas==2.1.4 (Data manipulation)
-- scikit-learn==1.3.2 (Machine learning, **required for scaler**)
-
-**If you get "No module named 'sklearn'" error:**
+**2. Start Backend Server**
 ```bash
-pip install scikit-learn
+python app.py
 ```
 
-### 2. Start Backend Server
-```bash
-python backend/app.py
-```
+**3. Open Frontend**
+Open `index.html` in your browser
 
-The server will:
-- Load the trained Wide & Deep model
-- Load the StandardScaler for feature normalization
-- Load feature names and metadata
-- Start Flask API on `http://localhost:5000`
-
-### 3. Open Frontend
-Simply open `frontend/index.html` in your web browser.
-
-### 4. Test the System
+**4. Test the System**
 1. Navigate to "Test Model" page
 2. Click any sample button (e.g., "🔴 DDoS")
 3. Click "Predict Attack Type"
@@ -340,7 +356,11 @@ MODEL_FILE = 'best_dl_model_wide_and_deep.keras'
 SCALER_DIR = '../scaler-features'
 
 # CORS
-CORS_ORIGINS = '*'  # Allow all (restrict in production)
+CORS_ORIGINS = [
+    'https://network-intrusion-detection-sys.netlify.app',
+    'http://localhost:5000',
+    'http://127.0.0.1:5000',
+]
 
 # Attack classes
 DEFAULT_CLASSES = [
@@ -363,20 +383,11 @@ DEFAULT_CLASSES = [
 - Chart.js for interactive pie chart visualizations
 - Fetch API for backend communication
 
-**Design Features:**
-- Dark navy blue background (#2C3E50)
-- Yellow/gold accent colors (#F39C12)
-- Seamless header and body integration
-- No boxed sections - clean, borderless design
-- Decorative circular gradients in background
-- Responsive grid layouts
-- Smooth hover effects and transitions
-
 ### Pages
 
 **1. Home Page (`index.html`)**
 - Hero section with project overview
-- Detailed descriptions of all 15 attack types with emojis
+- Detailed descriptions of all 15 attack types
 - Clean card-free design with left accent borders
 - Information about the Wide & Deep Neural Network
 - Smooth navigation with underline animations
@@ -550,41 +561,63 @@ function createProbabilityChart() {
 ## 📁 Project Structure
 
 ```
-├── backend/
-│   ├── app.py                 # Flask API server (main)
-│   ├── config.py              # Configuration settings
-│   └── requirements.txt       # Python dependencies
+├── backend/                   # Flask API Backend
+│   ├── app.py                 # Main Flask server
+│   ├── config.py              # Configuration
+│   ├── requirements.txt       # Python dependencies
+│   ├── Procfile               # Railway deployment
+│   ├── railway.json           # Railway config
+│   ├── runtime.txt            # Python version
+│   ├── models/                # Model files (copied for deployment)
+│   └── scaler-features/       # Scalers (copied for deployment)
 │
-├── frontend/
-│   ├── index.html             # Home page (dark theme)
-│   ├── predict.html           # Model testing with pie charts
-│   ├── visualizations.html    # Data visualizations
-│   ├── css/
-│   │   └── style.css          # Modern dark theme styling
-│   └── js/
-│       ├── app.js             # Frontend logic & Chart.js integration
-│       └── visualizations.js  # Image zoom functionality
+├── index.html                 # Home page (dark theme)
+├── predict.html               # Model testing with pie charts
+├── visualizations.html        # Data visualizations
+├── netlify.toml               # Netlify deployment config
 │
-├── src/models/deep learning/
-│   ├── best_dl_model_wide_and_deep.keras  # Trained model
-│   └── dl_model_metadata.pkl              # Model metadata
+├── css/
+│   └── style.css              # Modern dark theme styling
 │
-├── scaler-features/
-│   ├── dl_scaler.pkl          # StandardScaler
-│   └── dl_feature_names.pkl   # Feature names (65)
+├── js/
+│   ├── app.js                 # Frontend logic & Chart.js
+│   └── visualizations.js      # Image zoom functionality
+│
+├── notebook/
+│   └── Network Intrusion Detection Classification system.ipynb
+│       # Complete ML pipeline:
+│       # - Data preprocessing & EDA
+│       # - Feature engineering (temporal features)
+│       # - Training 11 models (6 ML + 5 DL)
+│       # - Model evaluation & comparison
+│       # - Rare classes handling with ensemble
+│       # - Visualization generation
+│
+├── src/models/                # Original trained models
+│   ├── deep learning/
+│   │   ├── best_dl_model_wide_and_deep.keras
+│   │   └── dl_model_metadata.pkl
+│   └── rare_classes/
+│       ├── best_dl_rare_wide_and_deep_rare.keras
+│       └── rare_classes_metadata.pkl
+│
+├── scaler-features/           # Original scalers & features
+│   ├── dl_scaler.pkl
+│   ├── dl_feature_names.pkl
+│   ├── rare_classes_scaler.pkl
+│   └── rare_classes_features.pkl
 │
 ├── visualization/             # Training visualizations
-│   ├── metrics by model (ML).png
-│   ├── Training & Validation Loss and accuracy.png
-│   ├── confusion matrix for best model.png
-│   ├── Distribution of Traffic.png
-│   ├── cyber attack frequency over time.png
-│   ├── port usage by traffic.png
-│   ├── Top 20 Most Common Destination Ports.png
-│   └── traffic distribution by hour.png
+│   ├── All Metrics Comparison Across Models.png
+│   ├── training_validation_loss_accuracy.png
+│   ├── confusion_matrix_best_model.png
+│   ├── distribution_of_traffic.png
+│   ├── cyber_attack_frequency_over_time.png
+│   ├── rare_classes_performance_comparison.png
+│   └── ... (more visualizations)
 │
-├── data/                      # Training datasets
-│   └── dataset2_with_temporal_200k.csv
+├── data/
+│   └── dataset2_with_temporal_200k.csv  # CICIDS2017 dataset
 │
 └── README.md                  # This file
 ```
@@ -648,7 +681,138 @@ The confusion matrix shows:
 - Excellent class separation
 - Robust performance across attack types
 
-## 🚀 Usage Examples
+## � Notgebook Workflow
+
+The Jupyter notebook (`notebook/Network Intrusion Detection Classification system.ipynb`) contains the complete ML pipeline:
+
+### 1. Data Loading & Exploration
+- Load CICIDS2017 dataset (200,000 samples)
+- Exploratory Data Analysis (EDA)
+- Class distribution analysis
+- Feature correlation matrix
+
+### 2. Data Preprocessing
+- Handle missing values
+- Remove duplicates
+- Feature engineering (temporal features: hour, minute, second)
+- Train-test split (80/20, stratified)
+- StandardScaler normalization
+
+### 3. Model Training & Evaluation
+**Traditional ML Models (6):**
+- Logistic Regression
+- Decision Tree
+- Random Forest
+- XGBoost
+- LightGBM
+- Naive Bayes
+
+**Deep Learning Models (5):**
+- Simple MLP
+- Deep MLP
+- Wide & Deep Network ⭐
+- 1D CNN
+- Autoencoder + Classifier
+
+### 4. Model Comparison
+- Accuracy, Precision, Recall, F1-Score
+- Confusion matrices
+- Training/validation curves
+- Performance visualization
+
+### 5. Rare Classes Handling
+- Identify rare classes (< 0.1% of data)
+- Data augmentation for Heartbleed (1 → 20 samples)
+- Train specialized ensemble model
+- Evaluate rare class detection
+
+### 6. Model Export
+- Save best model (.keras format)
+- Save StandardScaler (.pkl)
+- Save feature names (.pkl)
+- Save metadata (F1-score, accuracy, classes)
+
+### 7. Visualization Generation
+- Generate all charts in `visualization/` folder
+- Confusion matrices
+- Performance comparisons
+- Traffic analysis
+- Attack patterns
+
+## 🚀 Deployment
+
+### Architecture
+
+![Deployment Architecture](visualization/deployment_diagram.png)
+
+### Backend Deployment (Railway)
+
+**Platform**: Railway (https://railway.app)  
+**URL**: https://network-intrusion-detection-and-classification-s-production.up.railway.app
+
+**Setup:**
+1. Connect GitHub repository
+2. Set root directory: `backend`
+3. Railway auto-detects Python and installs dependencies
+4. Models loaded from `backend/models/` and `backend/scaler-features/`
+5. Gunicorn serves Flask app on port 8080
+
+**Configuration Files:**
+- `Procfile`: `web: gunicorn app:app`
+- `railway.json`: Build and deploy settings
+- `runtime.txt`: Python 3.11.0
+- `requirements.txt`: All dependencies including TensorFlow 2.17 + Keras 3.6
+
+**Environment Variables:**
+- `PORT`: Auto-set by Railway
+- `TF_ENABLE_ONEDNN_OPTS`: 0 (disable warnings)
+- `KERAS_BACKEND`: tensorflow
+
+**Auto-Deploy:**
+- Push to `main` branch → Railway rebuilds automatically
+- Build time: ~2 minutes
+- Zero downtime deployments
+
+### Frontend Deployment (Netlify)
+
+**Platform**: Netlify (https://netlify.com)  
+**URL**: https://network-intrusion-detection-sys.netlify.app
+
+**Setup:**
+1. Connect GitHub repository
+2. Branch: `main`
+3. Publish directory: `.` (root)
+4. No build command needed (static site)
+
+**Configuration:**
+- `netlify.toml`: Redirect rules for SPA
+- API URL in `js/app.js` points to Railway backend
+- CORS configured in `backend/config.py`
+
+**Auto-Deploy:**
+- Push to `main` branch → Netlify rebuilds automatically
+- Build time: ~30 seconds
+- Global CDN distribution
+
+### Deployment Workflow
+
+```bash
+# Make changes locally
+git add .
+git commit -m "Your changes"
+git push origin main
+
+### Monitoring & Logs
+
+**Railway:**
+- Dashboard: https://railway.app/dashboard
+- View logs: Click service → Logs tab
+- Check metrics: CPU, memory, network usage
+
+**Netlify:**
+- Dashboard: https://app.netlify.com
+- Deploy logs: Site → Deploys tab
+- Analytics: Site → Analytics
 
 ### Testing with Sample Data
 

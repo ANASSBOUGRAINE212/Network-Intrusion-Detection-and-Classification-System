@@ -1,11 +1,29 @@
-# Ignore system files and directories
-$Recycle.Bin/
-System Volume Information/
-hiberfil.sys
-pagefile.sys
-swapfile.sys
-DumpStack.log
-DumpStack.log.tmp
-Program Files/
-Program Files (x86)/
-ProgramData/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.env
+venv/
+env/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

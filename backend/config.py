@@ -7,17 +7,9 @@ PORT = int(os.environ.get('PORT', 5000))  # Use Render's PORT env variable
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'  # Set to False in production
 
 # Model Configuration
-# Using models from src/models/deep learning/ directory
-import os
-
-# Check if running on Railway (models in parent dir) or locally
-if os.path.exists('../src/models'):
-    MODEL_DIR = '../src/models/deep learning'
-    SCALER_DIR = '../scaler-features'
-else:
-    # On Railway, models should be in backend folder
-    MODEL_DIR = './models/deep learning'
-    SCALER_DIR = './scaler-features'
+# Models are stored in backend/models/ directory
+MODEL_DIR = './models/deep learning'
+SCALER_DIR = './scaler-features'
 
 MODEL_FILE = 'best_dl_model_wide_and_deep.keras'
 SCALER_FILE = 'dl_scaler.pkl'
@@ -27,8 +19,8 @@ METADATA_FILE = 'dl_model_metadata.pkl'
 # CORS Configuration
 CORS_ORIGINS = [
     'https://network-intrusion-detection-sys.netlify.app',
-    'http://localhost:*',  # For local development
-    '*'  # Allow all for now (restrict later)
+    'http://localhost:5000',
+    'http://127.0.0.1:5000',
 ]
 
 # Attack Classes (default if not in metadata)
