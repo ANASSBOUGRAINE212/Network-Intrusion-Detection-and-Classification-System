@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000';
+const API_URL = 'https://network-intrusion-detection-sys-production.up.railway.app';  // Replace with your actual Railway URL
 
 // Load model info and features on page load
 document.addEventListener('DOMContentLoaded', async () => {

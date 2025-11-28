@@ -25,7 +25,11 @@ FEATURES_FILE = 'dl_feature_names.pkl'
 METADATA_FILE = 'dl_model_metadata.pkl'
 
 # CORS Configuration
-CORS_ORIGINS = '*'  # Allow all origins (restrict in production)
+CORS_ORIGINS = [
+    'https://network-intrusion-detection-sys.netlify.app',
+    'http://localhost:*',  # For local development
+    '*'  # Allow all for now (restrict later)
+]
 
 # Attack Classes (default if not in metadata)
 DEFAULT_CLASSES = [
