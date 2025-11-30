@@ -560,66 +560,58 @@ function createProbabilityChart() {
 
 ## 📁 Project Structure
 
-```
-├── backend/                   # Flask API Backend
-│   ├── app.py                 # Main Flask server
-│   ├── config.py              # Configuration
-│   ├── requirements.txt       # Python dependencies
-│   ├── Procfile               # Railway deployment
-│   ├── railway.json           # Railway config
-│   ├── runtime.txt            # Python version
-│   ├── models/                # Model files (copied for deployment)
-│   └── scaler-features/       # Scalers (copied for deployment)
+Network-Intrusion-Detection-System/
 │
-├── index.html                 # Home page (dark theme)
-├── predict.html               # Model testing with pie charts
-├── visualizations.html        # Data visualizations
-├── netlify.toml               # Netlify deployment config
+├── backend/                          # Flask API Backend
+│   ├── models/
+│   │   ├── deep learning/
+│   │   │   ├── best_dl_model_wide_and_deep.keras
+│   │   │   └── dl_model_metadata.pkl
+│   │   └── rare_classes/
+│   │       ├── best_dl_rare_wide_and_deep_rare.keras
+│   │       └── rare_classes_metadata.pkl
+│   ├── scaler-features/
+│   │   ├── dl_feature_names.pkl
+│   │   ├── dl_scaler.pkl
+│   │   ├── rare_classes_features.pkl
+│   │   └── rare_classes_scaler.pkl
+│   ├── app.py                        # Main Flask server
+│   ├── config.py                     # Configuration
+│   ├── requirements.txt              # Python dependencies
+│   ├── Procfile                      # Railway deployment
+│   ├── railway.json                  # Railway config
+│   └── runtime.txt                   # Python version
 │
 ├── css/
-│   └── style.css              # Modern dark theme styling
+│   └── style.css                     # Dark theme styling
 │
 ├── js/
-│   ├── app.js                 # Frontend logic & Chart.js
-│   └── visualizations.js      # Image zoom functionality
+│   ├── app.js                        # Frontend logic
+│   └── visualizations.js             # Image zoom
+│
+├── data/
+│   ├── dataset2_with_temporal_200k.csv
+│   └── preprocessed_dataset.csv
 │
 ├── notebook/
 │   └── Network Intrusion Detection Classification system.ipynb
-│       # Complete ML pipeline:
-│       # - Data preprocessing & EDA
-│       # - Feature engineering (temporal features)
-│       # - Training 11 models (6 ML + 5 DL)
-│       # - Model evaluation & comparison
-│       # - Rare classes handling with ensemble
-│       # - Visualization generation
 │
-├── src/models/                # Original trained models
-│   ├── deep learning/
-│   │   ├── best_dl_model_wide_and_deep.keras
-│   │   └── dl_model_metadata.pkl
-│   └── rare_classes/
-│       ├── best_dl_rare_wide_and_deep_rare.keras
-│       └── rare_classes_metadata.pkl
-│
-├── scaler-features/           # Original scalers & features
-│   ├── dl_scaler.pkl
-│   ├── dl_feature_names.pkl
-│   ├── rare_classes_scaler.pkl
-│   └── rare_classes_features.pkl
-│
-├── visualization/             # Training visualizations
+├── visualization/
 │   ├── All Metrics Comparison Across Models.png
-│   ├── training_validation_loss_accuracy.png
 │   ├── confusion_matrix_best_model.png
-│   ├── distribution_of_traffic.png
 │   ├── cyber_attack_frequency_over_time.png
+│   ├── distribution_of_traffic.png
 │   ├── rare_classes_performance_comparison.png
+│   ├── training_validation_loss_accuracy.png
 │   └── ... (more visualizations)
 │
-├── data/
-│   └── dataset2_with_temporal_200k.csv  # CICIDS2017 dataset
-│
-└── README.md                  # This file
+├── index.html                        # Home page
+├── predict.html                      # Model testing page
+├── visualizations.html               # Visualizations page
+├── netlify.toml                      # Netlify config
+├── README.md                         # Documentation
+└── .gitignore                        # Git ignore rules
+
 ```
 
 ## 🔧 Data Preprocessing
